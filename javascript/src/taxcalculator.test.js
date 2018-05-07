@@ -16,12 +16,31 @@ test('have all products of shopping cart in database', () => {
     });
 });
 
+//GRANDTOTAL TESTS//
 test('getGrandtotal/0 is supposed to be 33.55', () => {
   let db = new Database();
   let calc = new TaxCalculator(db, shoppingCart);
   expect(calc.getGrandtotal()).toBeCloseTo(33.55);
-
 })
+
+test('getGrandtotalTax/0 is supposed to be 4', () => {
+  let db = new Database();
+  let calc = new TaxCalculator(db, shoppingCart);
+  expect(calc.getGrandtotalTax()).toBeCloseTo(4);
+})
+
+//SUBTOTAL TESTS//
+test('getSubtotal/1 is supposed to be 9.98 with a tax rate of 7%', () => {
+  let db = new Database();
+  let calc = new TaxCalculator(db, shoppingCart);
+  expect(calc.getSubtotal(0.07)).toBeCloseTo(9.98);
+})
+test('getSubtotalTax/1 is supposed to be 0.65 with a tax rate of 7%', () => {
+  let db = new Database();
+  let calc = new TaxCalculator(db, shoppingCart);
+  expect(calc.getSubtotalTax(0.07)).toBeCloseTo(0.65);
+})
+
 
 test('able to calculate taxes and totals', () => {
     let db = new Database();
