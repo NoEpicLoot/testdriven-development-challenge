@@ -18,7 +18,7 @@ test('have all products of shopping cart in database', () => {
 
 test('getGrandtotal/0 is supposed to be 33.55', () => {
   let db = new Database();
-  let calc = new TaxCalculator();
+  let calc = new TaxCalculator(db, shoppingCart);
   expect(calc.getGrandtotal()).toBeCloseTo(33.55);
 
 })
