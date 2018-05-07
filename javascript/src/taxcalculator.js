@@ -10,33 +10,43 @@ export class TaxCalculator {
     }
 
     getGrandtotal() {
-      let grandtotal = 0;
-
-      // for (let shoppingCartItem of this.shoppingCart) {
-      //   let productItem = this.database.getProduct(shoppingCartItem.productId);
-      //   grandtotal += productItem.price * shoppingCartItem.quantity;
-      // }
+      let grandtotal = 0.00;
       this.shoppingCart.forEach(shoppingCartItem => {
           let productItem = this.database.getProduct(shoppingCartItem.productId);
-          let priceFloat = parseFloat(productItem.price);
-          let quantityFloat = parseFloat(shoppingCartItem.quantity);
-          grandtotal += priceFloat * quantityFloat;
-          console.log(Number.isNaN(priceFloat), Number.isNaN(quantityFloat), Number.isNaN(grandtotal));
-
+          grandtotal += productItem.price * shoppingCartItem.quantity;
       });
-      console.log(grandtotal);
-      return parseFloat(grandtotal);
+      return grandtotal;
     }
 
     getGrandtotalTax() {
-        return 0; // TODO
+      let grandtotalTax = 0.00;
+      this.shoppingCart.forEach(shoppingCartItem => {
+          let productItem = this.database.getProduct(shoppingCartItem.productId);
+          grandtotalTax += Math.round((productItem.price * shoppingCartItem.quantity) * productItem.taxRate, 2);
+      });
+      return grandtotalTax;
     }
 
     getSubtotal(taxRate) {
-        return 0; // TODO
+      let subtotal = 0.00;
+      this.shoppingCart.forEach(shoppingCartItem => {
+          let productItem = this.database.getProduct(shoppingCartItem.productId);
+          if (productItem.taxRate == taxRate) {
+            subtotal += productItem.price * shoppingCartItem.quantity;
+          }
+      });
+      return subtotal;
     }
 
     getSubtotalTax(taxRate) {
-        return 0; // TODO
+      let subtotalTax = 0;
+      this.shoppingCart.forEach(shoppingCartItem => {
+          let productItem = this.database.getProduct(shoppingCartItem.productId);
+          if (productItem.taxRate == taxRate) {
+            subtotalTax += productItem.price * shoppingCartItem.quantity;
+          }
+      });
+      return subtotalTax - (subtotalTax / (taxRate+1));
     }
+
 }
