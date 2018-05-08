@@ -4,7 +4,7 @@
   "description": "Test-driven Development Challenge Project",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "keywords": [
     "tdd"
@@ -17,5 +17,8 @@
     "@babel/preset-env": "^7.0.0-beta.46",
     "babel-core": "^7.0.0-bridge.0",
     "jest": "^22.4.3"
+  },
+  "dependencies": {
+    "npm": "^6.0.0"
   }
 }
